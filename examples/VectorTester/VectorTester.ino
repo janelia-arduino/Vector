@@ -5,46 +5,20 @@
 
 const int BAUDRATE = 9600;
 
-const int ELEMENT_COUNT = 5;
+const int ELEMENT_COUNT_MAX = 5;
 
-void printVector(Vector<int,ELEMENT_COUNT> array)
+void printVector(Vector<int> vector)
 {
   Serial << "[";
-  for (int i=0; i<ELEMENT_COUNT; i++)
+  for (int i=0; i<vector.size(); i++)
   {
     if (i != 0)
     {
       Serial << ",";
     }
-    Serial << array[i];
+    Serial << vector[i];
   }
-  Serial << "]" << endl;
-}
-
-void printVector(const int (&array)[ELEMENT_COUNT])
-{
-  Vector<int,ELEMENT_COUNT> array_copy(array);
-  printVector(array_copy);
-}
-
-Vector<int,ELEMENT_COUNT> generateVector()
-{
-  Vector<int,ELEMENT_COUNT> array;
-  for (int i=0; i<ELEMENT_COUNT; i++)
-  {
-    array[i] = (i+1)*3;
-  }
-  return array;
-}
-
-Vector<int,ELEMENT_COUNT> doubleElements(Vector<int,ELEMENT_COUNT> &array)
-{
-  Vector<int,ELEMENT_COUNT> array_doubled;
-  for (int i=0; i<ELEMENT_COUNT; i++)
-  {
-    array_doubled[i] = array[i]*2;
-  }
-  return array_doubled;
+  Serial << "]" << endl << endl;
 }
 
 void setup()
@@ -52,43 +26,50 @@ void setup()
   Serial.begin(BAUDRATE);
   delay(1000);
 
-  const int array_simple[ELEMENT_COUNT] = {15,14,13,12,11};
-  Serial << "array_simple:" << endl;
-  printVector(array_simple);
+  int storage_array[ELEMENT_COUNT_MAX];
+  Vector<int> vector;
+  vector.setStorageArray(storage_array);
+  Serial << "vector.max_size(): " << vector.max_size() << endl;
+  Serial << "vector.size(): " << vector.size() << endl;
+  Serial << "vector:" << endl;
+  printVector(vector);
 
-  Vector<int,ELEMENT_COUNT> array_copy(array_simple);
-  Serial << "array_copy:" << endl;
-  printVector(array_copy);
+  vector.push_back(10);
+  vector.push_back(8);
+  vector.push_back(7);
+  Serial << "vector.max_size(): " << vector.max_size() << endl;
+  Serial << "vector.size(): " << vector.size() << endl;
+  Serial << "vector:" << endl;
+  printVector(vector);
 
-  Vector<int,ELEMENT_COUNT> array_initialized(ELEMENT_COUNT);
-  Serial << "array_initialized:" << endl;
-  printVector(array_initialized);
+  int storage_array2[ELEMENT_COUNT_MAX];
+  Vector<int> vector2(storage_array2);
+  vector2.push_back(1);
+  vector2.push_back(2);
+  vector2.push_back(4);
+  vector2.pop_back();
+  Serial << "vector2.max_size(): " << vector2.max_size() << endl;
+  Serial << "vector2.size(): " << vector2.size() << endl;
+  Serial << "vector2:" << endl;
+  printVector(vector2);
 
-  array_initialized.fill(37);
-  Serial << "array_initialized.fill(37):" << endl;
-  printVector(array_initialized);
+  int storage_array3[ELEMENT_COUNT_MAX];
+  storage_array3[0] = 3;
+  storage_array3[1] = 5;
+  Vector<int> vector3(storage_array3);
+  Serial << "vector3.max_size(): " << vector3.max_size() << endl;
+  Serial << "vector3.size(): " << vector3.size() << endl;
+  Serial << "vector3:" << endl;
+  printVector(vector3);
 
-  array_initialized.fill(array_simple);
-  Serial << "array_initialized.fill(array_simple):" << endl;
-  printVector(array_initialized);
-
-  array_initialized[3] = 666;
-  Serial << "array_initialized[3] = 666:" << endl;
-  printVector(array_initialized);
-
-  Vector<int,ELEMENT_COUNT> array_generated = generateVector();
-  Serial << "array_generated:" << endl;
-  printVector(array_generated);
-
-  Vector<int,ELEMENT_COUNT> array_doubled = doubleElements(array_generated);
-  Serial << "array_doubled:" << endl;
-  printVector(array_doubled);
-
-  int out_of_bounds = array_doubled[ELEMENT_COUNT+1];
-  Serial << "out_of_bounds: " << out_of_bounds << endl;
-
-  out_of_bounds = array_doubled.at(ELEMENT_COUNT+1);
-  Serial << "out_of_bounds:" << out_of_bounds << endl;
+  int storage_array4[ELEMENT_COUNT_MAX];
+  storage_array4[0] = 3;
+  storage_array4[1] = 5;
+  Vector<int> vector4(storage_array4,2);
+  Serial << "vector4.max_size(): " << vector4.max_size() << endl;
+  Serial << "vector4.size(): " << vector4.size() << endl;
+  Serial << "vector4:" << endl;
+  printVector(vector4);
 }
 
 

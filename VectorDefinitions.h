@@ -5,119 +5,140 @@
 // Authors:
 // Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
-#ifndef ARRAY_DEFINITIONS_H
-#define ARRAY_DEFINITIONS_H
+#ifndef VECTOR_DEFINITIONS_H
+#define VECTOR_DEFINITIONS_H
 
 
-template <typename T, unsigned int max_size_>
-Vector<T,max_size_>::Vector()
+template <typename T>
+Vector<T>::Vector()
 {
-  clear();
+  values_ptr_ = NULL;
+  max_size_ = 0;
+  size_ = 0;
 }
 
-template <typename T, unsigned int max_size_>
-Vector<T,max_size_>::Vector(const T &value)
+template <typename T>
+template <size_t MAX_SIZE>
+Vector<T>::Vector(T (&values)[MAX_SIZE], size_t size)
 {
-  fill(value);
+  setStorageArray(values,size);
 }
 
-template <typename T, unsigned int max_size_>
-Vector<T, max_size_>::Vector(const T (&values)[max_size_])
+template <typename T>
+template <size_t MAX_SIZE>
+void Vector<T>::setStorageArray(T (&values)[MAX_SIZE], size_t size)
 {
-  fill(values);
+  values_ptr_ = values;
+  max_size_ = MAX_SIZE;
+  size_ = size;
 }
 
-template <typename T, unsigned int max_size_>
-T& Vector<T, max_size_>::operator[](const unsigned int i)
+template <typename T>
+T& Vector<T>::operator[](const size_t i)
 {
-  return values_[i];
+  if (values_ptr_ != NULL)
+  {
+    return *(values_ptr_ + i);
+  }
 }
 
-template <typename T, unsigned int max_size_>
-T& Vector<T, max_size_>::at(const unsigned int i)
+template <typename T>
+T& Vector<T>::at(const size_t i)
 {
-  // assert((i>=0) && (i<size_));
-  return values_[i];
+  if (values_ptr_ != NULL)
+  {
+    return *(values_ptr_ + i);
+  }
 }
 
-template <typename T, unsigned int max_size_>
-T& Vector<T, max_size_>::front()
+template <typename T>
+T& Vector<T>::front()
 {
-  // assert(!empty());
-  return values_[0];
+  if (values_ptr_ != NULL)
+  {
+    return *(values_ptr_);
+  }
 }
 
-template <typename T, unsigned int max_size_>
-T& Vector<T, max_size_>::back()
+template <typename T>
+T& Vector<T>::back()
 {
-  // assert(!empty());
-  return values_[size_-1];
+  if (values_ptr_ != NULL)
+  {
+    return *(values_ptr_ + (size_ - 1));
+  }
 }
 
-template <typename T, unsigned int max_size_>
-void Vector<T, max_size_>::clear()
+template <typename T>
+void Vector<T>::clear()
 {
   size_ = 0;
 }
 
-template <typename T, unsigned int max_size_>
-void Vector<T, max_size_>::fill(const T &value)
+template <typename T>
+void Vector<T>::fill(const T &value)
 {
   assign(max_size_,value);
 }
 
-template <typename T, unsigned int max_size_>
-void Vector<T, max_size_>::fill(const T (&values)[max_size_])
-{
-  assign(max_size_,values);
-}
+// template <typename T>
+// void Vector<T>::fill(const T (&values)[max_size_])
+// {
+//   assign(max_size_,values);
+// }
 
-template <typename T, unsigned int max_size_>
-void Vector<T, max_size_>::assign(const unsigned int n, const T &value)
+template <typename T>
+void Vector<T>::assign(const size_t n, const T &value)
 {
-  unsigned int assign_size = n;
-  if ((n > size_) && (n <= max_size_))
+  if (values_ptr_ != NULL)
   {
-    size_ = n;
-  }
-  else if (n > max_size_)
-  {
-    size_ = max_size_;
-    assign_size = max_size_;
-  }
-  for (unsigned int i=0; i<assign_size; i++)
-  {
-    values_[i] = value;
-  }
-}
-
-template <typename T, unsigned int max_size_>
-void Vector<T, max_size_>::assign(const unsigned int n, const T values[])
-{
-  unsigned int assign_size = n;
-  if ((n > size_) && (n <= max_size_))
-  {
-    size_ = n;
-  }
-  else if (n > max_size_)
-  {
-    size_ = max_size_;
-    assign_size = max_size_;
-  }
-  memcpy((void*) values_, (void*) values, assign_size*sizeof(T));
-}
-
-template <typename T, unsigned int max_size_>
-void Vector<T, max_size_>::push_back(const T &value)
-{
-  if (size_ < max_size_)
-  {
-    values_[size_++] = value;
+    size_t assign_size = n;
+    if ((n > size_) && (n <= max_size_))
+    {
+      size_ = n;
+    }
+    else if (n > max_size_)
+    {
+      size_ = max_size_;
+      assign_size = max_size_;
+    }
+    for (size_t i=0; i<assign_size; i++)
+    {
+      *(values_ptr_ + i) = value;
+    }
   }
 }
 
-template <typename T, unsigned int max_size_>
-void Vector<T, max_size_>::pop_back()
+// template <typename T>
+// void Vector<T>::assign(const size_t n, const T values[])
+// {
+//   size_t assign_size = n;
+//   if ((n > size_) && (n <= max_size_))
+//   {
+//     size_ = n;
+//   }
+//   else if (n > max_size_)
+//   {
+//     size_ = max_size_;
+//     assign_size = max_size_;
+//   }
+//   memcpy((void*) (*values_ptr_), (void*) values, assign_size*sizeof(T));
+// }
+
+template <typename T>
+void Vector<T>::push_back(const T &value)
+{
+  if (values_ptr_ != NULL)
+  {
+    if (size_ < max_size_)
+    {
+      *(values_ptr_ + size_++) = value;
+    }
+  }
+}
+
+template <typename T>
+void Vector<T>::pop_back()
 {
   if (size_ > 0)
   {
@@ -125,26 +146,26 @@ void Vector<T, max_size_>::pop_back()
   }
 }
 
-template <typename T, unsigned int max_size_>
-unsigned int Vector<T, max_size_>::size()
+template <typename T>
+size_t Vector<T>::size()
 {
   return size_;
 }
 
-template <typename T, unsigned int max_size_>
-unsigned int Vector<T, max_size_>::max_size()
+template <typename T>
+size_t Vector<T>::max_size()
 {
   return max_size_;
 }
 
-template <typename T, unsigned int max_size_>
-bool Vector<T, max_size_>::empty()
+template <typename T>
+bool Vector<T>::empty()
 {
   return size_ == 0;
 }
 
-template <typename T, unsigned int max_size_>
-bool Vector<T, max_size_>::full()
+template <typename T>
+bool Vector<T>::full()
 {
   return size_ == max_size_;
 }
