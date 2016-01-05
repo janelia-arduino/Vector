@@ -14,7 +14,9 @@ instead of allocating memory dynamically, this container points to an
 external, statically allocated c style array. The maximum size is
 fixed at compile time, but the size can change by pushing and popping
 elements from the vector. Static memory allocation is used to avoid
-dynamic allocation problems on very small embedded processors.
+dynamic allocation problems on very small embedded processors. Care
+must be taken not to dereference an empty vector, access elements
+beyond bounds, or use without setting the storage array.
 
 This library is very similar to
 [Array](https://github.com/janelia-arduino/Array), however Array

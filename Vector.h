@@ -28,9 +28,10 @@ public:
   T& front();
   T& back();
   void clear();
-  void fill(const T &value);
-  // void fill(const T (&values)[max_size_]);
-  void assign(const size_t n, const T &value);
+  // void fill(const T &value);
+  // template <size_t MAX_SIZE>
+  // void fill(const T (&values)[MAX_SIZE]);
+  // void assign(const size_t n, const T &value);
   // void assign(const size_t n, const T values[]);
   void push_back(const T &value);
   void pop_back();

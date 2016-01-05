@@ -36,37 +36,25 @@ void Vector<T>::setStorageArray(T (&values)[MAX_SIZE], size_t size)
 template <typename T>
 T& Vector<T>::operator[](const size_t i)
 {
-  if (values_ptr_ != NULL)
-  {
-    return *(values_ptr_ + i);
-  }
+  return *(values_ptr_ + i);
 }
 
 template <typename T>
 T& Vector<T>::at(const size_t i)
 {
-  if (values_ptr_ != NULL)
-  {
-    return *(values_ptr_ + i);
-  }
+  return *(values_ptr_ + i);
 }
 
 template <typename T>
 T& Vector<T>::front()
 {
-  if (values_ptr_ != NULL)
-  {
-    return *(values_ptr_);
-  }
+  return *(values_ptr_);
 }
 
 template <typename T>
 T& Vector<T>::back()
 {
-  if (values_ptr_ != NULL)
-  {
-    return *(values_ptr_ + (size_ - 1));
-  }
+  return *(values_ptr_ + (size_ - 1));
 }
 
 template <typename T>
@@ -75,39 +63,40 @@ void Vector<T>::clear()
   size_ = 0;
 }
 
-template <typename T>
-void Vector<T>::fill(const T &value)
-{
-  assign(max_size_,value);
-}
-
 // template <typename T>
-// void Vector<T>::fill(const T (&values)[max_size_])
+// void Vector<T>::fill(const T &value)
 // {
-//   assign(max_size_,values);
+//   assign(max_size_,value);
 // }
 
-template <typename T>
-void Vector<T>::assign(const size_t n, const T &value)
-{
-  if (values_ptr_ != NULL)
-  {
-    size_t assign_size = n;
-    if ((n > size_) && (n <= max_size_))
-    {
-      size_ = n;
-    }
-    else if (n > max_size_)
-    {
-      size_ = max_size_;
-      assign_size = max_size_;
-    }
-    for (size_t i=0; i<assign_size; i++)
-    {
-      *(values_ptr_ + i) = value;
-    }
-  }
-}
+// template <typename T>
+// template <size_t MAX_SIZE>
+// void Vector<T>::fill(const T (&values)[MAX_SIZE])
+// {
+//   assign(MAX_SIZE,values);
+// }
+
+// template <typename T>
+// void Vector<T>::assign(const size_t n, const T &value)
+// {
+//   if (values_ptr_ != NULL)
+//   {
+//     size_t assign_size = n;
+//     if ((n > size_) && (n <= max_size_))
+//     {
+//       size_ = n;
+//     }
+//     else if (n > max_size_)
+//     {
+//       size_ = max_size_;
+//       assign_size = max_size_;
+//     }
+//     for (size_t i=0; i<assign_size; i++)
+//     {
+//       *(values_ptr_ + i) = value;
+//     }
+//   }
+// }
 
 // template <typename T>
 // void Vector<T>::assign(const size_t n, const T values[])
@@ -128,12 +117,9 @@ void Vector<T>::assign(const size_t n, const T &value)
 template <typename T>
 void Vector<T>::push_back(const T &value)
 {
-  if (values_ptr_ != NULL)
+  if ((values_ptr_ != NULL) && (size_ < max_size_))
   {
-    if (size_ < max_size_)
-    {
-      *(values_ptr_ + size_++) = value;
-    }
+    *(values_ptr_ + size_++) = value;
   }
 }
 
