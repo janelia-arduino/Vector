@@ -21,12 +21,12 @@ template <typename T>
 template <size_t MAX_SIZE>
 Vector<T>::Vector(T (&values)[MAX_SIZE], size_t size)
 {
-  setStorageArray(values,size);
+  setStorage(values,size);
 }
 
 template <typename T>
 template <size_t MAX_SIZE>
-void Vector<T>::setStorageArray(T (&values)[MAX_SIZE], size_t size)
+void Vector<T>::setStorage(T (&values)[MAX_SIZE], size_t size)
 {
   values_ptr_ = values;
   max_size_ = MAX_SIZE;

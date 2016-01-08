@@ -28,7 +28,7 @@ void setup()
 
   int storage_array[ELEMENT_COUNT_MAX];
   Vector<int> vector;
-  vector.setStorageArray(storage_array);
+  vector.setStorage(storage_array);
   Serial << "vector.max_size(): " << vector.max_size() << endl;
   Serial << "vector.size(): " << vector.size() << endl;
   Serial << "vector:" << endl;
@@ -70,6 +70,13 @@ void setup()
   Serial << "vector4.size(): " << vector4.size() << endl;
   Serial << "vector4:" << endl;
   printVector(vector4);
+
+  int storage_array5[1];
+  Vector<int> vector5(storage_array5);
+  Serial << "vector5.max_size(): " << vector5.max_size() << endl;
+  Serial << "vector5.size(): " << vector5.size() << endl;
+  Serial << "vector5:" << endl;
+  printVector(vector5);
 }
 
 

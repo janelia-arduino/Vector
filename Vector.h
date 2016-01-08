@@ -22,7 +22,7 @@ public:
   template <size_t MAX_SIZE>
   Vector(T (&values)[MAX_SIZE], size_t size=0);
   template <size_t MAX_SIZE>
-  void setStorageArray(T (&values)[MAX_SIZE], size_t size=0);
+  void setStorage(T (&values)[MAX_SIZE], size_t size=0);
   T& operator[](const size_t i);
   T& at(const size_t i);
   T& front();
