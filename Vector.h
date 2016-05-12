@@ -8,7 +8,6 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-#if defined(ARDUINO) && ARDUINO >= 100
 #ifdef ARDUINO
     #if ARDUINO >= 100
         #include <Arduino.h>
