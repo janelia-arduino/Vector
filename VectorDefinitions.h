@@ -8,6 +8,9 @@
 #ifndef VECTOR_DEFINITIONS_H
 #define VECTOR_DEFINITIONS_H
 
+#ifndef ARDUINO
+#include <cstring>
+#endif
 
 template <typename T>
 Vector<T>::Vector()

@@ -7,10 +7,16 @@
 // ----------------------------------------------------------------------------
 #ifndef VECTOR_H
 #define VECTOR_H
+
 #if defined(ARDUINO) && ARDUINO >= 100
-#include "Arduino.h"
+#ifdef ARDUINO
+    #if ARDUINO >= 100
+        #include <Arduino.h>
+    #else
+        #include <WProgram.h>
+    #endif
 #else
-#include "WProgram.h"
+    #include <cstddef>
 #endif
 
 
