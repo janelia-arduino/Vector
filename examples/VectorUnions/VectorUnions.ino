@@ -6,27 +6,27 @@
 
 const int BAUDRATE = 9600;
 
-union MemberType
+union SubsetMemberType
 {
   const long l;
-  ConstantString * const sp;
+  ConstantString * const cs_ptr;
 };
 
 enum{ODD_SUBSET_LENGTH=5};
-const MemberType odd_subset[ODD_SUBSET_LENGTH] = {1,3,5,7,9};
-Vector<const MemberType> odd_subset_vector;
+const SubsetMemberType odd_subset[ODD_SUBSET_LENGTH] = {1,3,5,7,9};
+Vector<const SubsetMemberType> odd_subset_vector;
 
 enum{MODE_SUBSET_LENGTH=3};
 CONSTANT_STRING(mode_rising,"RISING");
 CONSTANT_STRING(mode_falling,"FALLING");
 CONSTANT_STRING(mode_change,"CHANGE");
-const MemberType mode_ptr_subset[MODE_SUBSET_LENGTH] =
+const SubsetMemberType mode_ptr_subset[MODE_SUBSET_LENGTH] =
   {
     &mode_rising,
     &mode_falling,
     &mode_change,
   };
-Vector<const MemberType> mode_ptr_subset_vector;
+Vector<const SubsetMemberType> mode_ptr_subset_vector;
 
 void setup()
 {
@@ -58,7 +58,7 @@ void loop()
     {
       Serial << ",";
     }
-    Serial << *mode_ptr_subset_vector[i].sp;
+    Serial << *mode_ptr_subset_vector[i].cs_ptr;
   }
   Serial << "]" << endl;
 
