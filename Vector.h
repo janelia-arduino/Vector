@@ -50,6 +50,23 @@ private:
   size_t max_size_;
   size_t size_;
 };
+
+template <typename T>
+inline Print &operator <<(Print &stream, const Vector<T> &vector)
+{
+  stream.print("[");
+  for (int i=0; i<vector.size(); i++)
+  {
+    if (i != 0)
+    {
+      stream.print(",");
+    }
+    stream.print(vector[i]);
+  }
+  stream.print("]");
+  return stream;
+}
+
 #include "VectorDefinitions.h"
 
 #endif
