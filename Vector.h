@@ -33,20 +33,28 @@ public:
   T& front();
   T& back();
   void clear();
-  // void fill(const T &value);
-  // template <size_t MAX_SIZE>
-  // void fill(const T (&values)[MAX_SIZE]);
-  // void assign(const size_t n, const T &value);
-  // void assign(const size_t n, const T values[]);
+  template <typename U>
+  void fill(const U &value);
+  template <typename U, size_t N>
+  void fill(const U (&values)[N]);
+  template <typename U>
+  void fill(const Vector<U> &values);
+  template <typename U>
+  void assign(const size_t n, const U &value);
+  template <typename U, size_t N>
+  void assign(const size_t n, const U (&values)[N]);
+  template <typename U>
+  void assign(const size_t n, const Vector<U> &values);
   void push_back(const T &value);
   void pop_back();
   size_t size();
   size_t max_size();
   bool empty();
   bool full();
+  T* data();
 
 private:
-  T* values_ptr_;
+  T* values_;
   size_t max_size_;
   size_t size_;
 };

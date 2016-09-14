@@ -34,6 +34,7 @@ void setup()
   delay(1000);
 
   odd_subset_vector.setStorage(odd_subset,ODD_SUBSET_LENGTH);
+
   mode_ptr_subset_vector.setStorage(mode_ptr_subset,MODE_SUBSET_LENGTH);
 }
 

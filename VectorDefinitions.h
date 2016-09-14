@@ -15,7 +15,7 @@
 template <typename T>
 Vector<T>::Vector()
 {
-  values_ptr_ = NULL;
+  values_ = NULL;
   max_size_ = 0;
   size_ = 0;
 }
@@ -31,7 +31,7 @@ template <typename T>
 template <size_t MAX_SIZE>
 void Vector<T>::setStorage(T (&values)[MAX_SIZE], size_t size)
 {
-  values_ptr_ = values;
+  values_ = values;
   max_size_ = MAX_SIZE;
   size_ = size;
 }
@@ -39,25 +39,29 @@ void Vector<T>::setStorage(T (&values)[MAX_SIZE], size_t size)
 template <typename T>
 T& Vector<T>::operator[](const size_t i)
 {
-  return *(values_ptr_ + i);
+  // return *(values_ + i);
+  return values_[i];
 }
 
 template <typename T>
 T& Vector<T>::at(const size_t i)
 {
-  return *(values_ptr_ + i);
+  // return *(values_ + i);
+  return values_[i];
 }
 
 template <typename T>
 T& Vector<T>::front()
 {
-  return *(values_ptr_);
+  // return *(values_);
+  return values_[0];
 }
 
 template <typename T>
 T& Vector<T>::back()
 {
-  return *(values_ptr_ + (size_ - 1));
+  // return *(values_ + (size_ - 1));
+  return values_[size_-1];
 }
 
 template <typename T>
@@ -66,63 +70,72 @@ void Vector<T>::clear()
   size_ = 0;
 }
 
-// template <typename T>
-// void Vector<T>::fill(const T &value)
-// {
-//   assign(max_size_,value);
-// }
+template <typename T>
+template <typename U>
+void Vector<T>::fill(const U &value)
+{
+  assign(max_size_,value);
+}
 
-// template <typename T>
-// template <size_t MAX_SIZE>
-// void Vector<T>::fill(const T (&values)[MAX_SIZE])
-// {
-//   assign(MAX_SIZE,values);
-// }
+template <typename T>
+template <typename U, size_t N>
+void Vector<T>::fill(const U (&values)[N])
+{
+  assign(N,values);
+}
 
-// template <typename T>
-// void Vector<T>::assign(const size_t n, const T &value)
-// {
-//   if (values_ptr_ != NULL)
-//   {
-//     size_t assign_size = n;
-//     if ((n > size_) && (n <= max_size_))
-//     {
-//       size_ = n;
-//     }
-//     else if (n > max_size_)
-//     {
-//       size_ = max_size_;
-//       assign_size = max_size_;
-//     }
-//     for (size_t i=0; i<assign_size; i++)
-//     {
-//       *(values_ptr_ + i) = value;
-//     }
-//   }
-// }
+template <typename T>
+template <typename U>
+void Vector<T>::fill(const Vector<U> &values)
+{
+  assign(values.size(),values);
+}
 
-// template <typename T>
-// void Vector<T>::assign(const size_t n, const T values[])
-// {
-//   size_t assign_size = n;
-//   if ((n > size_) && (n <= max_size_))
-//   {
-//     size_ = n;
-//   }
-//   else if (n > max_size_)
-//   {
-//     size_ = max_size_;
-//     assign_size = max_size_;
-//   }
-//   memcpy((void*) (*values_ptr_), (void*) values, assign_size*sizeof(T));
-// }
+template <typename T>
+template <typename U>
+void Vector<T>::assign(const size_t n, const U &value)
+{
+  size_t assign_size = ((n < max_size_) ? n : max_size_);
+  size_ = assign_size;
+  for (size_t i=0; i<assign_size; i++)
+  {
+    values_[i] = value;
+  }
+}
+
+template <typename T>
+template <typename U, size_t N>
+void Vector<T>::assign(const size_t n, const U (&values)[N])
+{
+  size_t n_smallest = ((n < N) ? n : N);
+  size_t assign_size = ((n_smallest < max_size_) ? n_smallest : max_size_);
+  size_ = assign_size;
+  for (size_t i=0; i<assign_size; i++)
+  {
+    values_[i] = values[i];
+  }
+}
+
+template <typename T>
+template <typename U>
+void Vector<T>::assign(const size_t n, const Vector<U> &values)
+{
+  size_t n_smallest = ((n < values.size()) ? n : values.size());
+  size_t assign_size = ((n_smallest < max_size_) ? n_smallest : max_size_);
+  size_ = assign_size;
+  for (size_t i=0; i<assign_size; i++)
+  {
+    values_[i] = values[i];
+  }
+}
 
 template <typename T>
 void Vector<T>::push_back(const T &value)
 {
-  if ((values_ptr_ != NULL) && (size_ < max_size_))
+  if ((values_ != NULL) && (size_ < max_size_))
   {
-    *(values_ptr_ + size_++) = value;
+    // *(values_ + size_++) = value;
+    values_[size_++] = value;
   }
 }
 
@@ -157,6 +170,12 @@ template <typename T>
 bool Vector<T>::full()
 {
   return size_ == max_size_;
+}
+
+template <typename T>
+T* Vector<T>::data()
+{
+  return values_;
 }
 
 #endif

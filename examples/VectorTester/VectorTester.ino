@@ -63,6 +63,12 @@ void setup()
   Serial << "vector5.size(): " << vector5.size() << endl;
   Serial << "vector5:" << endl;
   Serial << vector5 << endl;
+
+  int storage_array6[ELEMENT_COUNT_MAX];
+  Vector<int> vector6(storage_array6);
+  vector6.assign(ELEMENT_COUNT_MAX-1,8);
+  Serial << "vector6:" << endl;
+  Serial << vector6 << endl;
 }
 
 
