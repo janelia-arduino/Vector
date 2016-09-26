@@ -39,28 +39,24 @@ void Vector<T>::setStorage(T (&values)[MAX_SIZE], size_t size)
 template <typename T>
 T & Vector<T>::operator[](const size_t i)
 {
-  // return *(values_ + i);
   return values_[i];
 }
 
 template <typename T>
 T & Vector<T>::at(const size_t i)
 {
-  // return *(values_ + i);
   return values_[i];
 }
 
 template <typename T>
 T & Vector<T>::front()
 {
-  // return *(values_);
   return values_[0];
 }
 
 template <typename T>
 T & Vector<T>::back()
 {
-  // return *(values_ + (size_ - 1));
   return values_[size_-1];
 }
 
@@ -134,7 +130,6 @@ void Vector<T>::push_back(const T & value)
 {
   if ((values_ != NULL) && (size_ < max_size_))
   {
-    // *(values_ + size_++) = value;
     values_[size_++] = value;
   }
 }
