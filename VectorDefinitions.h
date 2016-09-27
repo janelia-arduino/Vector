@@ -144,25 +144,25 @@ void Vector<T>::pop_back()
 }
 
 template <typename T>
-size_t Vector<T>::size()
+size_t Vector<T>::size() const
 {
   return size_;
 }
 
 template <typename T>
-size_t Vector<T>::max_size()
+size_t Vector<T>::max_size() const
 {
   return max_size_;
 }
 
 template <typename T>
-bool Vector<T>::empty()
+bool Vector<T>::empty() const
 {
   return size_ == 0;
 }
 
 template <typename T>
-bool Vector<T>::full()
+bool Vector<T>::full() const
 {
   return size_ == max_size_;
 }
