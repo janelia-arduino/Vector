@@ -93,7 +93,7 @@ void Vector<T>::assign(const size_t n, const U & value)
 {
   size_t assign_size = ((n < max_size_) ? n : max_size_);
   size_ = assign_size;
-  for (size_t i=0; i<assign_size; i++)
+  for (size_t i=0; i<assign_size; ++i)
   {
     values_[i] = value;
   }
@@ -106,7 +106,7 @@ void Vector<T>::assign(const size_t n, const U (&values)[N])
   size_t n_smallest = ((n < N) ? n : N);
   size_t assign_size = ((n_smallest < max_size_) ? n_smallest : max_size_);
   size_ = assign_size;
-  for (size_t i=0; i<assign_size; i++)
+  for (size_t i=0; i<assign_size; ++i)
   {
     values_[i] = values[i];
   }
@@ -119,7 +119,7 @@ void Vector<T>::assign(const size_t n, const Vector<U> & values)
   size_t n_smallest = ((n < values.size()) ? n : values.size());
   size_t assign_size = ((n_smallest < max_size_) ? n_smallest : max_size_);
   size_ = assign_size;
-  for (size_t i=0; i<assign_size; i++)
+  for (size_t i=0; i<assign_size; ++i)
   {
     values_[i] = values[i];
   }

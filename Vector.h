@@ -63,7 +63,7 @@ template <typename T>
 inline Print & operator <<(Print & stream, const Vector<T> & vector)
 {
   stream.print("[");
-  for (int i=0; i<vector.size(); i++)
+  for (size_t i=0; i<vector.size(); ++i)
   {
     if (i != 0)
     {
