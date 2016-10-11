@@ -37,15 +37,15 @@ void Vector<T>::setStorage(T (&values)[MAX_SIZE], size_t size)
 }
 
 template <typename T>
-T & Vector<T>::operator[](const size_t i)
+T & Vector<T>::operator[](const size_t index)
 {
-  return values_[i];
+  return values_[index];
 }
 
 template <typename T>
-T & Vector<T>::at(const size_t i)
+T & Vector<T>::at(const size_t index)
 {
-  return values_[i];
+  return values_[index];
 }
 
 template <typename T>
