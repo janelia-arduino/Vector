@@ -37,6 +37,14 @@ void Vector<T>::setStorage(T (&values)[MAX_SIZE], size_t size)
 }
 
 template <typename T>
+void Vector<T>::setStorage(T * values, size_t max_size, size_t size)
+{
+  values_ = values;
+  max_size_ = max_size;
+  size_ = size;
+}
+
+template <typename T>
 T & Vector<T>::operator[](const size_t index)
 {
   return values_[index];
