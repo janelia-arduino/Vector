@@ -28,7 +28,7 @@ public:
   Vector(T (&values)[MAX_SIZE], size_t size=0);
   template <size_t MAX_SIZE>
   void setStorage(T (&values)[MAX_SIZE], size_t size=0);
-  void setStorage(T * values, size_t max_size, size_t size=0);
+  void setStorage(T * values, size_t max_size, size_t size);
   T & operator[](const size_t index);
   T & at(const size_t index);
   T & front();
