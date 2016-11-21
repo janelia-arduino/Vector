@@ -61,7 +61,7 @@ private:
 };
 
 template <typename T>
-inline Print & operator <<(Print & stream, Vector<T> & vector)
+inline Print & operator <<(Print & stream, const Vector<T> & vector)
 {
   stream.print("[");
   for (size_t i=0; i<vector.size(); ++i)
