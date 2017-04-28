@@ -48,6 +48,7 @@ public:
   void assign(const size_t n, Vector<U> & values);
   void push_back(const T & value);
   void pop_back();
+  void remove(const size_t index);
   size_t size() const;
   size_t max_size() const;
   bool empty() const;

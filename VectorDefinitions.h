@@ -152,6 +152,19 @@ void Vector<T>::pop_back()
 }
 
 template <typename T>
+void Vector<T>::remove(const size_t index)
+{
+  if (size_ > index)
+  {
+    for (size_t i=index; i<(size_-1); ++i)
+    {
+      values_[i] = values_[i+1];
+    }
+    --size_;
+  }
+}
+
+template <typename T>
 size_t Vector<T>::size() const
 {
   return size_;
