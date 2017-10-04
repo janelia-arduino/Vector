@@ -1,9 +1,9 @@
-#include "Arduino.h"
-#include "Streaming.h"
-#include "Vector.h"
+#include <Arduino.h>
+#include <Streaming.h>
+#include <Vector.h>
 
 
-const int BAUDRATE = 9600;
+const long BAUDRATE = 115200;
 
 const int ELEMENT_COUNT_MAX = 5;
 
@@ -13,7 +13,6 @@ void setup()
   delay(1000);
 
 }
-
 
 void loop()
 {

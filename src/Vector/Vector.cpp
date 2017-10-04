@@ -5,6 +5,4 @@
 // Authors:
 // Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
-#include "Vector.h"
-
-
+#include "../Vector.h"

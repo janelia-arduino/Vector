@@ -7,15 +7,10 @@
 // ----------------------------------------------------------------------------
 #ifndef VECTOR_H
 #define VECTOR_H
-
 #ifdef ARDUINO
-    #if ARDUINO >= 100
-        #include <Arduino.h>
-    #else
-        #include <WProgram.h>
-    #endif
+#include <Arduino.h>
 #else
-    #include <cstddef>
+#include <cstddef>
 #endif
 
 
@@ -77,6 +72,6 @@ inline Print & operator <<(Print & stream, Vector<T> & vector)
   return stream;
 }
 
-#include "VectorDefinitions.h"
+#include "Vector/VectorDefinitions.h"
 
 #endif
