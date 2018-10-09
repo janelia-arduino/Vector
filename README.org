@@ -3,8 +3,12 @@
 #+EMAIL: peterpolidoro@gmail.com
 
 * Library Information
-  - Author :: Peter Polidoro
+  - Name :: Vector
+  - Version :: 1.0.1
   - License :: BSD
+  - URL :: https://github.com/janelia-arduino/Vector
+  - Author :: Peter Polidoro
+  - Email :: peterpolidoro@gmail.com
 
   A sequence container similar to the C++
   [[http://www.cplusplus.com/reference/vector/vector/][std::vector]], but
@@ -28,18 +32,18 @@
 ** Vector
 
    #+BEGIN_SRC C++
-const int ELEMENT_COUNT = 5;
-int storage_array[ELEMENT_COUNT_MAX];
-Vector<int> vector(storage_array);
-vector.push_back(77);
+     const int ELEMENT_COUNT = 5;
+     int storage_array[ELEMENT_COUNT_MAX];
+     Vector<int> vector(storage_array);
+     vector.push_back(77);
    #+END_SRC
 
 ** Array
 
    #+BEGIN_SRC C++
-const int ELEMENT_COUNT = 5;
-Array<int,ELEMENT_COUNT> array;
-array.push_back(77);
+     const int ELEMENT_COUNT = 5;
+     Array<int,ELEMENT_COUNT> array;
+     array.push_back(77);
    #+END_SRC
 
 * Library Examples
