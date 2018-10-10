@@ -24,8 +24,10 @@ public:
   template <size_t MAX_SIZE>
   void setStorage(T (&values)[MAX_SIZE], size_t size=0);
   void setStorage(T * values, size_t max_size, size_t size);
-  T & operator[](const size_t index);
-  T & at(const size_t index);
+  const T & operator[](size_t index) const;
+  T & operator[](size_t index);
+  const T & at(size_t index) const;
+  T & at(size_t index);
   T & front();
   T & back();
   void clear();
@@ -34,20 +36,21 @@ public:
   template <typename U, size_t N>
   void fill(const U (&values)[N]);
   template <typename U>
-  void fill(Vector<U> & values);
+  void fill(const Vector<U> & values);
   template <typename U>
-  void assign(const size_t n, const U & value);
+  void assign(size_t n, const U & value);
   template <typename U, size_t N>
-  void assign(const size_t n, const U (&values)[N]);
+  void assign(size_t n, const U (&values)[N]);
   template <typename U>
-  void assign(const size_t n, Vector<U> & values);
+  void assign(size_t n, const Vector<U> & values);
   void push_back(const T & value);
   void pop_back();
-  void remove(const size_t index);
+  void remove(size_t index);
   size_t size() const;
   size_t max_size() const;
   bool empty() const;
   bool full() const;
+  const T * data() const;
   T * data();
 
 private:
@@ -57,7 +60,7 @@ private:
 };
 
 template <typename T>
-inline Print & operator <<(Print & stream, Vector<T> & vector)
+inline Print & operator <<(Print & stream, const Vector<T> & vector)
 {
   stream.print("[");
   for (size_t i=0; i<vector.size(); ++i)

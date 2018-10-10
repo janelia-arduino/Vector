@@ -45,13 +45,25 @@ void Vector<T>::setStorage(T * values, size_t max_size, size_t size)
 }
 
 template <typename T>
-T & Vector<T>::operator[](const size_t index)
+const T & Vector<T>::operator[](size_t index) const
 {
   return values_[index];
 }
 
 template <typename T>
-T & Vector<T>::at(const size_t index)
+T & Vector<T>::operator[](size_t index)
+{
+  return values_[index];
+}
+
+template <typename T>
+T & Vector<T>::at(size_t index)
+{
+  return values_[index];
+}
+
+template <typename T>
+const T & Vector<T>::at(size_t index) const
 {
   return values_[index];
 }
@@ -90,14 +102,14 @@ void Vector<T>::fill(const U (&values)[N])
 
 template <typename T>
 template <typename U>
-void Vector<T>::fill(Vector<U> & values)
+void Vector<T>::fill(const Vector<U> & values)
 {
   assign(values.size(),values);
 }
 
 template <typename T>
 template <typename U>
-void Vector<T>::assign(const size_t n, const U & value)
+void Vector<T>::assign(size_t n, const U & value)
 {
   size_t assign_size = ((n < max_size_) ? n : max_size_);
   size_ = assign_size;
@@ -109,7 +121,7 @@ void Vector<T>::assign(const size_t n, const U & value)
 
 template <typename T>
 template <typename U, size_t N>
-void Vector<T>::assign(const size_t n, const U (&values)[N])
+void Vector<T>::assign(size_t n, const U (&values)[N])
 {
   size_t n_smallest = ((n < N) ? n : N);
   size_t assign_size = ((n_smallest < max_size_) ? n_smallest : max_size_);
@@ -122,7 +134,7 @@ void Vector<T>::assign(const size_t n, const U (&values)[N])
 
 template <typename T>
 template <typename U>
-void Vector<T>::assign(const size_t n, Vector<U> & values)
+void Vector<T>::assign(size_t n, const Vector<U> & values)
 {
   size_t n_smallest = ((n < values.size()) ? n : values.size());
   size_t assign_size = ((n_smallest < max_size_) ? n_smallest : max_size_);
@@ -152,7 +164,7 @@ void Vector<T>::pop_back()
 }
 
 template <typename T>
-void Vector<T>::remove(const size_t index)
+void Vector<T>::remove(size_t index)
 {
   if (size_ > index)
   {
@@ -190,6 +202,12 @@ bool Vector<T>::full() const
 
 template <typename T>
 T * Vector<T>::data()
+{
+  return values_;
+}
+
+template <typename T>
+const T * Vector<T>::data() const
 {
   return values_;
 }
