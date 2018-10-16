@@ -22,14 +22,16 @@ Vector<T>::Vector()
 
 template <typename T>
 template <size_t MAX_SIZE>
-Vector<T>::Vector(T (&values)[MAX_SIZE], size_t size)
+Vector<T>::Vector(T (&values)[MAX_SIZE],
+  size_t size)
 {
   setStorage(values,size);
 }
 
 template <typename T>
 template <size_t MAX_SIZE>
-void Vector<T>::setStorage(T (&values)[MAX_SIZE], size_t size)
+void Vector<T>::setStorage(T (&values)[MAX_SIZE],
+  size_t size)
 {
   values_ = values;
   max_size_ = MAX_SIZE;
@@ -37,7 +39,9 @@ void Vector<T>::setStorage(T (&values)[MAX_SIZE], size_t size)
 }
 
 template <typename T>
-void Vector<T>::setStorage(T * values, size_t max_size, size_t size)
+void Vector<T>::setStorage(T * values,
+  size_t max_size,
+  size_t size)
 {
   values_ = values;
   max_size_ = max_size;
@@ -94,7 +98,8 @@ void Vector<T>::fill(const U & value)
 }
 
 template <typename T>
-template <typename U, size_t N>
+template <typename U,
+  size_t N>
 void Vector<T>::fill(const U (&values)[N])
 {
   assign(N,values);
@@ -109,7 +114,8 @@ void Vector<T>::fill(const Vector<U> & values)
 
 template <typename T>
 template <typename U>
-void Vector<T>::assign(size_t n, const U & value)
+void Vector<T>::assign(size_t n,
+  const U & value)
 {
   size_t assign_size = ((n < max_size_) ? n : max_size_);
   size_ = assign_size;
@@ -120,8 +126,10 @@ void Vector<T>::assign(size_t n, const U & value)
 }
 
 template <typename T>
-template <typename U, size_t N>
-void Vector<T>::assign(size_t n, const U (&values)[N])
+template <typename U,
+  size_t N>
+void Vector<T>::assign(size_t n,
+  const U (&values)[N])
 {
   size_t n_smallest = ((n < N) ? n : N);
   size_t assign_size = ((n_smallest < max_size_) ? n_smallest : max_size_);
@@ -134,7 +142,8 @@ void Vector<T>::assign(size_t n, const U (&values)[N])
 
 template <typename T>
 template <typename U>
-void Vector<T>::assign(size_t n, const Vector<U> & values)
+void Vector<T>::assign(size_t n,
+  const Vector<U> & values)
 {
   size_t n_smallest = ((n < values.size()) ? n : values.size());
   size_t assign_size = ((n_smallest < max_size_) ? n_smallest : max_size_);
