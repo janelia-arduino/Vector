@@ -4,7 +4,7 @@
 
 * Library Information
   - Name :: Vector
-  - Version :: 1.1.1
+  - Version :: 1.1.2
   - License :: BSD
   - URL :: https://github.com/janelia-arduino/Vector
   - Author :: Peter Polidoro
@@ -45,11 +45,3 @@
      Array<int,ELEMENT_COUNT> array;
      array.push_back(77);
    #+END_SRC
-
-* Library Examples
-
-  [[./examples]]
-
-* Library Dependencies
-
-  [[https://github.com/janelia-arduino/arduino-libraries][arduino-libraries]]
