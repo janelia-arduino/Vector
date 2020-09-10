@@ -12,6 +12,7 @@
 #else
 #include <cstddef>
 #endif
+#include "Vector/VectorIterator.h"
 
 
 template <typename T>
@@ -61,6 +62,12 @@ public:
   bool full() const;
   const T * data() const;
   T * data();
+  typedef VectorIterator<T> iterator;
+  iterator begin();
+  iterator end();
+  typedef VectorIterator<const T> const_iterator;
+  const_iterator begin() const;
+  const_iterator end() const;
 
 private:
   T * values_;

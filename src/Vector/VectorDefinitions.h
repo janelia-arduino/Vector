@@ -221,4 +221,28 @@ const T * Vector<T>::data() const
   return values_;
 }
 
+template <typename T>
+typename Vector<T>::iterator Vector<T>::begin()
+{
+  return iterator(values_);
+}
+
+template <typename T>
+typename Vector<T>::iterator Vector<T>::end()
+{
+  return iterator(values_,size_);
+}
+
+template <typename T>
+typename Vector<T>::const_iterator Vector<T>::begin() const
+{
+  return const_iterator(values_);
+}
+
+template <typename T>
+typename Vector<T>::const_iterator Vector<T>::end() const
+{
+  return const_iterator(values_,size_);
+}
+
 #endif
