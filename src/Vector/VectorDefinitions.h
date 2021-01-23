@@ -81,7 +81,7 @@ T & Vector<T>::front()
 template <typename T>
 T & Vector<T>::back()
 {
-  return values_[size_-1];
+  return (size_ > 0) ? values_[size_-1] : values_[0];
 }
 
 template <typename T>
