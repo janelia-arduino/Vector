@@ -32,7 +32,7 @@
 ** Vector
 
    #+BEGIN_SRC C++
-     const int ELEMENT_COUNT = 5;
+     const int ELEMENT_COUNT_MAX = 5;
      int storage_array[ELEMENT_COUNT_MAX];
      Vector<int> vector(storage_array);
      vector.push_back(77);
