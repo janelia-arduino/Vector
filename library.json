@@ -1,0 +1,21 @@
+{
+  "name": "Vector",
+  "version": "1.2.1",
+  "description": "An array container similar to the C++ std::vector",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/janelia-arduino/Vector.git"
+  },
+  "authors": [
+    {
+      "name": "Peter Polidoro",
+      "email": "peterpolidoro@gmail.com",
+      "url": "https://projects.peterpolidoro.net/",
+      "maintainer": true
+    }
+  ],
+  "license": "BSD-3-Clause",
+  "homepage": "https://github.com/janelia-arduino/Vector",
+  "frameworks": "*",
+  "platforms": "*"
+}
