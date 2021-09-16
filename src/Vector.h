@@ -75,6 +75,7 @@ private:
   size_t size_;
 };
 
+#ifdef ARDUINO    /* `Print` is declared in the Arduino library and gives a compilation error elsewhere. */
 template <typename T>
 inline Print & operator <<(Print & stream,
   const Vector<T> & vector)
@@ -91,6 +92,7 @@ inline Print & operator <<(Print & stream,
   stream.print("]");
   return stream;
 }
+#endif
 
 #include "Vector/VectorDefinitions.h"
 
