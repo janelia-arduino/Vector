@@ -1,14 +1,14 @@
 #+TITLE: Vector
 #+AUTHOR: Peter Polidoro
-#+EMAIL: peterpolidoro@gmail.com
+#+EMAIL: peter@polidoro.io
 
 * Library Information
   - Name :: Vector
-  - Version :: 1.2.1
+  - Version :: 1.2.2
   - License :: BSD
   - URL :: https://github.com/janelia-arduino/Vector
   - Author :: Peter Polidoro
-  - Email :: peterpolidoro@gmail.com
+  - Email :: peter@polidoro.io
 
   A sequence container similar to the C++
   [[http://www.cplusplus.com/reference/vector/vector/][std::vector]], but

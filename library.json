@@ -1,6 +1,6 @@
 {
   "name": "Vector",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "An array container similar to the C++ std::vector",
   "repository": {
     "type": "git",
@@ -9,8 +9,8 @@
   "authors": [
     {
       "name": "Peter Polidoro",
-      "email": "peterpolidoro@gmail.com",
-      "url": "https://projects.peterpolidoro.net/",
+      "email": "peter@polidoro.io",
+      "url": "https://github.com/peterpolidoro",
       "maintainer": true
     }
   ],
