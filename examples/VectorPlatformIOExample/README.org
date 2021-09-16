@@ -1,0 +1,45 @@
+#+TITLE: PlatformIO example
+
+This example can be built using [[https://docs.platformio.org][PlatformIO]],
+instead of the Arduino IDE.
+
+** Running the code
+
+*** Platform: native
+
+- To run the code in src/ natively:
+
+   #+BEGIN_SRC sh
+    pio run -e native && .pio/build/native/program
+   #+END_SRC
+
+- To run the code in test/ natively:
+
+   #+BEGIN_SRC sh
+     pio test -e native
+   #+END_SRC
+
+*** Platform: Arduino
+
+Before doing any of this, edit =platformio.ini= for your board.
+
+- To run the code in src/ on a device and then monitor its output:
+
+   #+BEGIN_SRC sh
+     pio run -e uno -t upload && pio device monitor
+   #+END_SRC
+
+- To run the tests on a device:
+
+   #+BEGIN_SRC sh
+     pio test -e uno
+   #+END_SRC
+
+*** All platforms at once
+
+- To run the tests natively on all platforms described in `platformio.ini`:
+
+   #+BEGIN_SRC sh
+     pio test
+   #+END_SRC
+
