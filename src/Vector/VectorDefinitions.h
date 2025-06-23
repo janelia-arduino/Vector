@@ -21,6 +21,13 @@ Vector<T>::Vector()
 }
 
 template <typename T>
+Vector<T>::Vector(size_t max_size)
+{
+  T storage[max_size];
+  setStorage(storage);
+}
+
+template <typename T>
 template <size_t MAX_SIZE>
 Vector<T>::Vector(T (&values)[MAX_SIZE],
   size_t size)

@@ -97,4 +97,14 @@ void loop()
   Serial << "vector6:" << endl;
   Serial << vector6 << endl;
   delay(DELAY);
+
+c  Elements vector7(4);
+  vector7.push_back(3);
+  vector7.push_back(2);
+  Serial << "vector7.max_size(): " << vector5.max_size() << endl;
+  Serial << "vector7.size(): " << vector5.size() << endl;
+  Serial << "vector7:" << endl;
+  Serial << vector7 << endl;
+  delay(DELAY);
+
 }

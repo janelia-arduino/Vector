@@ -20,6 +20,7 @@ class Vector
 {
 public:
   Vector();
+  Vector(size_t max_size);
   template <size_t MAX_SIZE>
   Vector(T (&values)[MAX_SIZE],
     size_t size=0);
