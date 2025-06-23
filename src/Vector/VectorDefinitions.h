@@ -21,7 +21,7 @@ Vector<T>::Vector()
 }
 
 template <typename T>
-Vector<T>::Vector(int max_size)
+Vector<T>::Vector(size_t max_size)
 {
   T storage[max_size];
   setStorage(storage);
