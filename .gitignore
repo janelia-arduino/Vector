@@ -8,3 +8,5 @@
 .tags_sorted_by_file
 .pio
 .platformio
+__pycache__/
+*.pyc
