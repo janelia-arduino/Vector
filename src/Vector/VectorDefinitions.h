@@ -34,34 +34,64 @@ void Vector<T>::setStorage(T (&values)[MAX_SIZE], size_t size) {
 
 template <typename T>
 void Vector<T>::setStorage(T *values, size_t max_size, size_t size) {
+  if ((values == nullptr) || (max_size == 0)) {
+    values_ = nullptr;
+    max_size_ = 0;
+    size_ = 0;
+    return;
+  }
   values_ = values;
   max_size_ = max_size;
   size_ = (size < max_size_) ? size : max_size_;
 }
 
 template <typename T> const T &Vector<T>::operator[](size_t index) const {
+  VECTOR_ACCESS_CHECK(values_ != nullptr);
+  VECTOR_ACCESS_CHECK(index < size_);
   return values_[index];
 }
 
 template <typename T> T &Vector<T>::operator[](size_t index) {
+  VECTOR_ACCESS_CHECK(values_ != nullptr);
+  VECTOR_ACCESS_CHECK(index < size_);
   return values_[index];
 }
 
-template <typename T> T &Vector<T>::at(size_t index) { return values_[index]; }
+template <typename T> T &Vector<T>::at(size_t index) {
+  VECTOR_ACCESS_CHECK(values_ != nullptr);
+  VECTOR_ACCESS_CHECK(index < size_);
+  return values_[index];
+}
 
 template <typename T> const T &Vector<T>::at(size_t index) const {
+  VECTOR_ACCESS_CHECK(values_ != nullptr);
+  VECTOR_ACCESS_CHECK(index < size_);
   return values_[index];
 }
 
-template <typename T> const T &Vector<T>::front() const { return values_[0]; }
+template <typename T> const T &Vector<T>::front() const {
+  VECTOR_ACCESS_CHECK(values_ != nullptr);
+  VECTOR_ACCESS_CHECK(size_ > 0);
+  return values_[0];
+}
 
-template <typename T> T &Vector<T>::front() { return values_[0]; }
+template <typename T> T &Vector<T>::front() {
+  VECTOR_ACCESS_CHECK(values_ != nullptr);
+  VECTOR_ACCESS_CHECK(size_ > 0);
+  return values_[0];
+}
 
 template <typename T> const T &Vector<T>::back() const {
+  VECTOR_ACCESS_CHECK(values_ != nullptr);
+  VECTOR_ACCESS_CHECK(size_ > 0);
   return values_[size_ - 1];
 }
 
-template <typename T> T &Vector<T>::back() { return values_[size_ - 1]; }
+template <typename T> T &Vector<T>::back() {
+  VECTOR_ACCESS_CHECK(values_ != nullptr);
+  VECTOR_ACCESS_CHECK(size_ > 0);
+  return values_[size_ - 1];
+}
 
 template <typename T> void Vector<T>::clear() { size_ = 0; }
 

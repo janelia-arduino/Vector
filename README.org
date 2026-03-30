@@ -5,7 +5,7 @@
 
 * Library Information
 - Name :: Vector
-- Version :: 1.3.0
+- Version :: 1.4.0
 - License :: BSD
 - URL :: https://github.com/janelia-arduino/Vector
 - Author :: Peter Polidoro
@@ -21,6 +21,9 @@ The container tracks a variable logical size while the maximum capacity comes
 from the storage array you attach with the constructor or =setStorage()=.
 That avoids heap usage on small embedded targets, but it also means your sketch
 must provide valid backing storage before accessing elements.
+
+The library is explicitly header-only. Include =Vector.h= and no separate
+compilation unit is required.
 
 This library pairs naturally with
 [[https://github.com/janelia-arduino/Array][Array]]. =Vector= stores its
@@ -83,6 +86,9 @@ Representative APIs:
 - =remove(index)= only changes the container when =index < size()=.
 - =operator[]()=, =at()=, =front()=, and =back()= do not perform bounds
   checking.
+- Define =VECTOR_ENABLE_BOUNDS_CHECKS= before including =Vector.h= to enable
+  assertion-backed access checks in those methods, or override
+  =VECTOR_ACCESS_CHECK(condition)= with a custom hook.
 
 * Vector vs Array
 
@@ -121,25 +127,28 @@ pixi install
 pixi run pio-version
 pixi run format-check
 pixi run test
+pixi run build examples/VectorTester uno
 pixi run build examples/VectorTester pico
-pixi run build examples/VectorTester teensy40
 pixi run release-check
 #+END_SRC
 
 Pixi keeps the =pio= CLI and its Python runtime local to the repository. The
 =build=, =upload=, =flash=, and =rebuild= tasks select examples without
-editing =platformio.ini=.
+editing =platformio.ini=. The default release-check uses a representative
+matrix of native tests plus =uno= and =pico= builds.
 
 Useful commands:
 
 #+BEGIN_SRC sh
 pixi run ports
 pixi run format-all
-pixi run build examples/VectorTester pico
-pixi run upload examples/VectorTester pico /dev/ttyACM0
+pixi run build examples/VectorTester <env>
+pixi run upload examples/VectorTester <env> /dev/ttyACM0
 pixi run monitor /dev/ttyACM0 115200
-pixi run set-version -- 1.2.2
+pixi run set-version -- 1.4.0
 #+END_SRC
+
+Sample environments: =uno=, =mega=, =pico=, =teensy40=.
 
 Equivalent direct commands without Pixi:
 
@@ -147,9 +156,9 @@ Equivalent direct commands without Pixi:
 make native-test
 python3 tools/clang_format_all.py --check
 python3 tools/version_sync.py check
+python3 tools/pio_task.py build --example examples/VectorTester --env uno
 python3 tools/pio_task.py build --example examples/VectorTester --env pico
-python3 tools/pio_task.py build --example examples/VectorTester --env teensy40
-python3 tools/pio_task.py upload --example examples/VectorTester --env pico --port /dev/ttyACM0
+python3 tools/pio_task.py upload --example examples/VectorTester --env <env> --port /dev/ttyACM0
 #+END_SRC
 
 * Release Checklist

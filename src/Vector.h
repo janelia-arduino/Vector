@@ -7,11 +7,23 @@
 // ----------------------------------------------------------------------------
 #ifndef VECTOR_H
 #define VECTOR_H
+
 #ifdef ARDUINO
 #include <Arduino.h>
+#include <assert.h>
 #else
+#include <cassert>
 #include <cstddef>
 #endif
+
+#ifndef VECTOR_ACCESS_CHECK
+#ifdef VECTOR_ENABLE_BOUNDS_CHECKS
+#define VECTOR_ACCESS_CHECK(condition) assert(condition)
+#else
+#define VECTOR_ACCESS_CHECK(condition) ((void)0)
+#endif
+#endif
+
 #include "Vector/VectorIterator.h"
 
 template <typename T> class Vector {

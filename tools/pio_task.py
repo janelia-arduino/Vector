@@ -13,10 +13,13 @@ from pathlib import Path
 
 
 def _project_root() -> Path:
+    script_root = Path(__file__).resolve().parents[1]
     env_root = os.environ.get("PIXI_PROJECT_ROOT")
     if env_root:
-        return Path(env_root).resolve()
-    return Path(__file__).resolve().parents[1]
+        resolved = Path(env_root).resolve()
+        if (resolved / "tools").resolve() == script_root / "tools":
+            return resolved
+    return script_root
 
 
 def _normalize_rel_path(path: str) -> Path:

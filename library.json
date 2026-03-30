@@ -1,7 +1,7 @@
 {
   "name": "Vector",
-  "version": "1.3.0",
-  "description": "Fixed-capacity vector-like container with caller-provided static storage.",
+  "version": "1.4.0",
+  "description": "Header-only fixed-capacity vector-like container with caller-provided static storage.",
   "repository": {
     "type": "git",
     "url": "https://github.com/janelia-arduino/Vector.git"
