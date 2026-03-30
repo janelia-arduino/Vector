@@ -1,0 +1,96 @@
+[workspace]
+name = "Vector"
+version = "1.3.0"
+description = "Arduino fixed-capacity vector-like container with external static storage."
+authors = ["Peter Polidoro <peter@polidoro.io>"]
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
+
+[dependencies]
+platformio = ">=6.1.19,<7"
+python = ">=3.12,<=3.14"
+git = "*"
+clang-format = ">=18,<21"
+
+[tasks]
+ports = "pio device list"
+pio-version = "pio --version"
+test = "make native-test"
+format = "python tools/clang_format_all.py"
+format-all = "python tools/clang_format_all.py"
+check-format = "python tools/clang_format_all.py --check"
+format-check = "python tools/clang_format_all.py --check"
+check-version = "python tools/version_sync.py check"
+release-check = "python tools/release_check.py"
+
+[tasks.build]
+description = "Build an example for a PlatformIO environment."
+args = [
+  { arg = "example", default = "examples/VectorTester" },
+  { arg = "env", default = "pico" },
+]
+cmd = "python tools/pio_task.py build --example {{ example }} --env {{ env }}"
+
+[tasks.clean]
+description = "Clean build artifacts for an example/environment pair."
+args = [
+  { arg = "example", default = "examples/VectorTester" },
+  { arg = "env", default = "pico" },
+]
+cmd = "python tools/pio_task.py clean --example {{ example }} --env {{ env }}"
+
+[tasks.upload]
+description = "Build and upload an example."
+args = [
+  { arg = "example", default = "examples/VectorTester" },
+  { arg = "env", default = "pico" },
+  { arg = "port", default = "/dev/ttyACM0" },
+]
+cmd = "python tools/pio_task.py upload --example {{ example }} --env {{ env }} --port {{ port }}"
+
+[tasks.flash]
+description = "Clean and upload an example."
+args = [
+  { arg = "example", default = "examples/VectorTester" },
+  { arg = "env", default = "pico" },
+  { arg = "port", default = "/dev/ttyACM0" },
+]
+cmd = "python tools/pio_task.py flash --example {{ example }} --env {{ env }} --port {{ port }}"
+
+[tasks.rebuild]
+description = "Clean and rebuild an example."
+args = [
+  { arg = "example", default = "examples/VectorTester" },
+  { arg = "env", default = "pico" },
+]
+cmd = "python tools/pio_task.py rebuild --example {{ example }} --env {{ env }}"
+
+[tasks.deepclean]
+description = "Delete the isolated PlatformIO build directory for an example."
+args = [{ arg = "example", default = "examples/VectorTester" }]
+cmd = "python tools/pio_task.py deepclean --example {{ example }}"
+
+[tasks.monitor]
+description = "Open a serial monitor."
+args = [
+  { arg = "port", default = "/dev/ttyACM0" },
+  { arg = "baud", default = "115200" },
+]
+cmd = "python tools/pio_task.py monitor --port {{ port }} --baud {{ baud }}"
+
+[tasks.set-version]
+description = "Set the version across library.properties, library.json, README.org, and pixi.toml."
+args = [{ arg = "version" }]
+cmd = "python tools/version_sync.py set {{ version }}"
+
+[target.linux-64.dependencies]
+make = "*"
+c-compiler = "*"
+
+[target.osx-64.dependencies]
+make = "*"
+c-compiler = "*"
+
+[target.osx-arm64.dependencies]
+make = "*"
+c-compiler = "*"

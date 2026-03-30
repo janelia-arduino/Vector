@@ -1,47 +1,164 @@
+#+OPTIONS: toc:1 |:t ^:nil tags:nil
 #+TITLE: Vector
 #+AUTHOR: Peter Polidoro
 #+EMAIL: peter@polidoro.io
 
 * Library Information
-  - Name :: Vector
-  - Version :: 1.2.2
-  - License :: BSD
-  - URL :: https://github.com/janelia-arduino/Vector
-  - Author :: Peter Polidoro
-  - Email :: peter@polidoro.io
+- Name :: Vector
+- Version :: 1.3.0
+- License :: BSD
+- URL :: https://github.com/janelia-arduino/Vector
+- Author :: Peter Polidoro
+- Email :: peter@polidoro.io
 
-  A sequence container similar to the C++
-  [[http://www.cplusplus.com/reference/vector/vector/][std::vector]], but
-  instead of allocating memory dynamically, this container points to an
-  external, statically allocated c style array. The maximum size is
-  fixed at compile time, but the size can change by pushing and popping
-  elements from the vector. Static memory allocation is used to avoid
-  dynamic allocation problems on very small embedded processors. Care
-  must be taken not to dereference an empty vector, access elements
-  beyond bounds, or use without setting the storage array.
+** Description
 
-  This library is very similar to
-  [[https://github.com/janelia-arduino/Array][Array]], however Array
-  stores data internally in the container and this library stores data
-  externally. The pointer to the external memory causes this container
-  to use more memory than the Array container, but storing the data
-  externally avoids needing the maximum size as a class template
-  parameter.
+Arduino container library similar to
+[[http://www.cplusplus.com/reference/vector/vector/][std::vector]], but
+backed by caller-provided static storage instead of dynamic allocation.
+
+The container tracks a variable logical size while the maximum capacity comes
+from the storage array you attach with the constructor or =setStorage()=.
+That avoids heap usage on small embedded targets, but it also means your sketch
+must provide valid backing storage before accessing elements.
+
+This library pairs naturally with
+[[https://github.com/janelia-arduino/Array][Array]]. =Vector= stores its
+elements in external storage and does not need the maximum size as a template
+argument. =Array= stores its elements internally and encodes the maximum size
+in the type.
+
+* Quick Start
+
+** Basic setup
+
+#+BEGIN_SRC cpp
+#include <Vector.h>
+
+constexpr size_t ELEMENT_COUNT_MAX = 5;
+int storage[ELEMENT_COUNT_MAX];
+Vector<int> vector(storage);
+
+void setup() {
+  vector.push_back(21);
+  vector.push_back(42);
+  vector.push_back(84);
+}
+#+END_SRC
+
+You can also attach storage later:
+
+#+BEGIN_SRC cpp
+Vector<int> vector;
+int storage[8];
+
+void setup() { vector.setStorage(storage, 0); }
+#+END_SRC
+
+** Common operations
+
+Representative APIs:
+
+- =push_back(value)=
+- =pop_back()=
+- =remove(index)=
+- =clear()=
+- =fill(value)=
+- =assign(n, value)=
+- =size()=
+- =max_size()=
+- =empty()=
+- =full()=
+- =front()=
+- =back()=
+- =data()=
+- =begin()= and =end()=
+
+** Storage and bounds notes
+
+- The default constructor leaves the container unattached to storage until
+  =setStorage()= is called.
+- =push_back()= is ignored when the vector is already full.
+- =pop_back()= is ignored when the vector is empty.
+- =remove(index)= only changes the container when =index < size()=.
+- =operator[]()=, =at()=, =front()=, and =back()= do not perform bounds
+  checking.
 
 * Vector vs Array
+
 ** Vector
 
-   #+BEGIN_SRC C++
-     const int ELEMENT_COUNT_MAX = 5;
-     int storage_array[ELEMENT_COUNT_MAX];
-     Vector<int> vector(storage_array);
-     vector.push_back(77);
-   #+END_SRC
+#+BEGIN_SRC cpp
+constexpr size_t ELEMENT_COUNT_MAX = 5;
+int storage[ELEMENT_COUNT_MAX];
+Vector<int> vector(storage);
+vector.push_back(77);
+#+END_SRC
 
 ** Array
 
-   #+BEGIN_SRC C++
-     const int ELEMENT_COUNT_MAX = 5;
-     Array<int,ELEMENT_COUNT_MAX> array;
-     array.push_back(77);
-   #+END_SRC
+#+BEGIN_SRC cpp
+constexpr size_t ELEMENT_COUNT_MAX = 5;
+Array<int, ELEMENT_COUNT_MAX> array;
+array.push_back(77);
+#+END_SRC
+
+Choose =Vector= when the storage already exists elsewhere or when you want the
+capacity decided outside the type. Choose =Array= when the container should own
+its fixed-capacity storage directly.
+
+* Build and Examples
+
+Representative examples:
+
+- [[./examples/VectorTester/VectorTester.ino][examples/VectorTester/VectorTester.ino]]
+- [[./examples/PlatformIO/src/main.cpp][examples/PlatformIO/src/main.cpp]]
+
+Preferred local workflow with Pixi:
+
+#+BEGIN_SRC sh
+pixi install
+pixi run pio-version
+pixi run format-check
+pixi run test
+pixi run build examples/VectorTester pico
+pixi run build examples/VectorTester teensy40
+pixi run release-check
+#+END_SRC
+
+Pixi keeps the =pio= CLI and its Python runtime local to the repository. The
+=build=, =upload=, =flash=, and =rebuild= tasks select examples without
+editing =platformio.ini=.
+
+Useful commands:
+
+#+BEGIN_SRC sh
+pixi run ports
+pixi run format-all
+pixi run build examples/VectorTester pico
+pixi run upload examples/VectorTester pico /dev/ttyACM0
+pixi run monitor /dev/ttyACM0 115200
+pixi run set-version -- 1.2.2
+#+END_SRC
+
+Equivalent direct commands without Pixi:
+
+#+BEGIN_SRC sh
+make native-test
+python3 tools/clang_format_all.py --check
+python3 tools/version_sync.py check
+python3 tools/pio_task.py build --example examples/VectorTester --env pico
+python3 tools/pio_task.py build --example examples/VectorTester --env teensy40
+python3 tools/pio_task.py upload --example examples/VectorTester --env pico --port /dev/ttyACM0
+#+END_SRC
+
+* Release Checklist
+
+Before tagging a release:
+
+- Update =CHANGELOG.md=.
+- Sync version metadata with =python3 tools/version_sync.py set X.Y.Z=.
+- Run =pixi run format-check=.
+- Run =make native-test=.
+- Run =pixi run release-check=.
+- Commit, tag, and push the release.

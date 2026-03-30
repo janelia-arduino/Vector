@@ -1,12 +1,13 @@
 #ifdef ARDUINO
-# include <Arduino.h>
+#include <Arduino.h>
 #else
-# include <cstdio>
+#include <cstdio>
 #endif
 
 #include <Vector.h>
 
-char storage[] = { 'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd', '!', '\r', '\n' };
+char storage[] = {'H', 'e', 'l', 'l', 'o', ' ',  'W',
+                  'o', 'r', 'l', 'd', '!', '\r', '\n'};
 Vector<char> vector(storage, sizeof(storage));
 
 #ifdef ARDUINO

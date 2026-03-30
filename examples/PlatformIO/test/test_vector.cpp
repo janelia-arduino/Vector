@@ -5,11 +5,11 @@
 // Authors:
 // Darsey Litzenberger dlitz@dlitz.net
 // ----------------------------------------------------------------------------
-#include <unity.h>
 #include <Vector.h>
+#include <unity.h>
 
 static void test_vector_size() {
-  int storage[8] = { 21, 42, 84, 0, 0, 0, 0, 0 };
+  int storage[8] = {21, 42, 84, 0, 0, 0, 0, 0};
   Vector<int> v(storage, 3);
   TEST_ASSERT_EQUAL(8, v.max_size());
   TEST_ASSERT_EQUAL(3, v.size());
@@ -22,11 +22,11 @@ static void test_vector_size() {
 }
 
 static void test_vector_iterator() {
-  int storage[8] = { 21, 42, 84, 0, 0, 0, 0, 0 };
+  int storage[8] = {21, 42, 84, 0, 0, 0, 0, 0};
   Vector<int> v(storage, 3);
 
-  const int expected[3] = { 21, 42, 84 };
-  int i=0;
+  const int expected[3] = {21, 42, 84};
+  int i = 0;
   for (auto it = v.begin(); it != v.end(); ++it, ++i) {
     TEST_ASSERT_EQUAL(expected[i], *it);
   }
@@ -42,17 +42,13 @@ static void runTests() {
 
 #ifdef ARDUINO
 
-void setup() {
-  runTests();
-}
+void setup() { runTests(); }
 
-void loop() {
-}
+void loop() {}
 
 #else /* !defined(ARDUINO) */
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
   runTests();
   return 0;
 }
